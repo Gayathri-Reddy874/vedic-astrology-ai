@@ -157,6 +157,8 @@ Planned: full Vashya/Yoni matrices, Vimshottari Dasha, Navamsa, CSRF protection 
 
 For learning and entertainment. Astrological output is not scientific fact and must not drive medical, legal or financial decisions.
 
+---
+
 ## 📄 License
 
 [MIT](LICENSE) · **Mallareddygari Gayathri** · [GitHub](https://github.com/Gayathri-Reddy874) · [LinkedIn](https://linkedin.com/in/mallareddygari-gayathri)
