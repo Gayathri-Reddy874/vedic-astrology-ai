@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Chart Header -->
+<section class="chart-header">
+    <div class="container">
+        <h1 class="chart-title">
+            {% if name %}
+                {{ name }}'s Vedic Horoscope
+            {% else %}
+                Your Vedic Horoscope
+            {% endif %}
+        </h1>
+        
+        <div class="birth-info">
+            <div class="info-chip">
+                <i class="fas fa-calendar-alt"></i>
+                <span>{{ birth_details.date }}</span>
+            </div>
+            <div class="info-chip">
+                <i class="fas fa-clock"></i>
+                <span>{{ birth_details.time }}</span>
+            </div>
+            <div class="info-chip">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>{{ birth_details.latitude }}°, {{ birth_details.longitude }}°</span>
+            </div>
+            <div class="info-chip">
+                <i class="fas fa-globe"></i>
+                <span>{{ birth_details.timezone }}</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Chart Content -->
+<section class="chart-content">
+    <div class="container">
+        <!-- Panchanga Section -->
+        <div class="chart-section">
+            <h2 class="section-title">
+                <i class="fas fa-calendar-alt"></i>
+                Panchanga
+            </h2>
+            
+            <div class="panchanga-grid">
+                <div class="panchanga-card">
+                    <div class="panchanga-label">Tithi</div>
+                    <div class="panchanga-value">{{ chart.Panchanga.Tithi }}</div>
+                    <div class="panchanga-sub">{{ chart.Panchanga.Tithi_Index }}/30</div>
+                </div>
+                
+                <div class="panchanga-card">
+                    <div class="panchanga-label">Nakshatra</div>
+                    <div class="panchanga-value">{{ chart.Panchanga.Nakshatra }}</div>
+                    <div class="panchanga-sub">Pada {{ chart.Panchanga.Pada }}</div>
+                </div>
+                
+                <div class="panchanga-card">
+                    <div class="panchanga-label">Yoga</div>
+                    <div class="panchanga-value">{{ chart.Panchanga.Yoga }}</div>
+                </div>
+                
+                <div class="panchanga-card">
+                    <div class="panchanga-label">Karana</div>
+                    <div class="panchanga-value">{{ chart.Panchanga.Karana }}</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Ascendant Section -->
+        <div class="chart-section">
+            <h2 class="section-title">
+                <i class="fas fa-arrow-up"></i>
+                Ascendant (Lagna)
+            </h2>
+            
+            <div class="ascendant-card">
+                <div class="ascendant-sign">{{ chart.Ascendant.sign }}</div>
+                <div class="ascendant-details">
+                    <span class="degree">{{ chart.Ascendant.degree }}°</span>
+                    <span class="sign-en">({{ chart.Ascendant.sign_en }})</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Planets Section -->
+        <div class="chart-section">
+            <h2 class="section-title">
+                <i class="fas fa-planet-ringed"></i>
+                Planetary Positions
+            </h2>
+            
+            <div class="planets-grid">
+                {% for planet, data in chart.Planets.items() %}
+                <div class="planet-card">
+                    <div class="planet-header">
+                        <span class="planet-symbol">{{ data.symbol }}</span>
+                        <span class="planet-name">{{ planet }}</span>
+                    </div>
+                    
+                    <div class="planet-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Sign:</span>
+                            <span class="detail-value">{{ data.sign }} ({{ data.sign_en }})</span>
+                        </div>
+                        
+                        {% if data.degree is defined %}
+                        <div class="detail-item">
+                            <span class="detail-label">Degree:</span>
+                            <span class="detail-value">{{ data.degree }}°</span>
+                        </div>
+                        {% endif %}
+                        
+                        {% if data.nakshatra is defined %}
+                        <div class="detail-item">
+                            <span class="detail-label">Nakshatra:</span>
+                            <span class="detail-value">{{ data.nakshatra }} (Pada {{ data.pada }})</span>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="detail-item">
+                            <span class="detail-label">Longitude:</span>
+                            <span class="detail-value">{{ data.longitude }}°</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Houses Section -->
+        <div class="chart-section">
+            <h2 class="section-title">
+                <i class="fas fa-home"></i>
+                House Cusps
+            </h2>
+            
+            <div class="houses-grid">
+                {% for house, data in chart.Houses.items() %}
+                <div class="house-card">
+                    <div class="house-number">{{ house }}</div>
+                    <div class="house-sign">{{ data.sign }}</div>
+                    <div class="house-degree">{{ data.degree }}°</div>
+                    <div class="house-sign-en">{{ data.sign_en }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+    <a href="{{ url_for('index') }}" class="btn btn-outline">
+        <i class="fas fa-arrow-left"></i>
+        New Chart
+    </a>
+    <a href="{{ url_for('ai_chat') }}" class="btn btn-primary">
+        <i class="fas fa-robot"></i>
+        Ask AI About Your Chart
+    </a>
+    <button class="btn btn-outline" onclick="window.print()">
+        <i class="fas fa-print"></i>
+        Print
+    </button>
+    </div>
+    </div>
+</section>
+{% endblock %}

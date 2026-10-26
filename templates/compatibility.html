@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">Kundali <span class="highlight">Matching</span></h1>
+        <p class="hero-subtitle">Check compatibility through Vedic Guna Milan (36 points)</p>
+    </div>
+    <div class="hero-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#2c5f2d" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,170.7C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- Matching Form -->
+<section class="birth-form-section">
+    <div class="container">
+        <div class="form-container">
+            <h2 class="form-title">Enter Both Birth Details</h2>
+            
+            {% if error %}
+            <div class="error-message">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>{{ error }}</p>
+            </div>
+            {% endif %}
+            
+            <form action="{{ url_for('match_kundalis') }}" method="POST" class="birth-form">
+                <div class="matching-grid">
+                    <!-- Boy's Details -->
+                    <div class="person-details">
+                        <h3 class="person-title">
+                            <i class="fas fa-mars"></i>
+                            Boy's Details
+                        </h3>
+                        
+                        <div class="form-group">
+                            <label for="boy_name">Name (Optional)</label>
+                            <input type="text" id="boy_name" name="boy_name" placeholder="Enter boy's name">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="boy_year">Year</label>
+                                <input type="number" id="boy_year" name="boy_year" value="1990" min="1900" max="2100" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="boy_month">Month</label>
+                                <input type="number" id="boy_month" name="boy_month" value="1" min="1" max="12" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="boy_day">Day</label>
+                                <input type="number" id="boy_day" name="boy_day" value="1" min="1" max="31" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Girl's Details -->
+                    <div class="person-details">
+                        <h3 class="person-title">
+                            <i class="fas fa-venus"></i>
+                            Girl's Details
+                        </h3>
+                        
+                        <div class="form-group">
+                            <label for="girl_name">Name (Optional)</label>
+                            <input type="text" id="girl_name" name="girl_name" placeholder="Enter girl's name">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="girl_year">Year</label>
+                                <input type="number" id="girl_year" name="girl_year" value="1990" min="1900" max="2100" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="girl_month">Month</label>
+                                <input type="number" id="girl_month" name="girl_month" value="1" min="1" max="12" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="girl_day">Day</label>
+                                <input type="number" id="girl_day" name="girl_day" value="1" min="1" max="31" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Common Location -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="latitude">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Latitude
+                        </label>
+                        <input type="number" id="latitude" name="latitude" value="28.6139" step="any" required>
+                        <small>e.g., 28.6139 for Delhi</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="longitude">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Longitude
+                        </label>
+                        <input type="number" id="longitude" name="longitude" value="77.2090" step="any" required>
+                        <small>e.g., 77.2090 for Delhi</small>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-heart"></i>
+                    Check Compatibility
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Info Section -->
+<section class="features">
+    <div class="container">
+        <h2 class="section-title">Understanding <span class="highlight">Guna Milan</span></h2>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <span class="guna-points">8</span>
+                </div>
+                <h3>Nadi</h3>
+                <p>Health and genetics compatibility</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <span class="guna-points">7</span>
+                </div>
+                <h3>Bhakoot</h3>
+                <p>Emotional and family compatibility</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <span class="guna-points">6</span>
+                </div>
+                <h3>Gana</h3>
+                <p>Temperament compatibility</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <span class="guna-points">5</span>
+                </div>
+                <h3>Graha Maitri</h3>
+                <p>Mental compatibility</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <span class="guna-points">4</span>
+                </div>
+                <h3>Yoni</h3>
+                <p>Physical intimacy compatibility</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <span class="guna-points">3</span>
+                </div>
+                <h3>Tara</h3>
+                <p>Luck and destiny compatibility</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

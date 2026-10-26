@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">Discover Your <span class="highlight">Cosmic Blueprint</span></h1>
+        <p class="hero-subtitle">Generate your detailed Vedic horoscope with planetary positions, nakshatras, and panchanga</p>
+    </div>
+    <div class="hero-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#2c5f2d" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,170.7C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- Birth Details Form -->
+<section class="birth-form-section">
+    <div class="container">
+        <div class="form-container">
+            <h2 class="form-title">Enter Birth Details</h2>
+            
+            {% if error %}
+            <div class="error-message">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>{{ error }}</p>
+            </div>
+            {% endif %}
+            
+            <form action="{{ url_for('chart') }}" method="POST" class="birth-form" id="birthForm">
+                <div class="form-group">
+                    <label for="name">
+                        <i class="fas fa-user"></i>
+                        Name (Optional)
+                    </label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="year">
+                            <i class="fas fa-calendar"></i>
+                            Year
+                        </label>
+                        <input type="number" id="year" name="year" value="1990" min="1900" max="2100" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="month">
+                            <i class="fas fa-calendar"></i>
+                            Month
+                        </label>
+                        <input type="number" id="month" name="month" value="1" min="1" max="12" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="day">
+                            <i class="fas fa-calendar"></i>
+                            Day
+                        </label>
+                        <input type="number" id="day" name="day" value="1" min="1" max="31" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hour">
+                            <i class="fas fa-clock"></i>
+                            Hour (24h)
+                        </label>
+                        <input type="number" id="hour" name="hour" value="12" min="0" max="23" step="1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="minute">
+                            <i class="fas fa-clock"></i>
+                            Minute
+                        </label>
+                        <input type="number" id="minute" name="minute" value="0" min="0" max="59" step="1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="second">
+                            <i class="fas fa-clock"></i>
+                            Second
+                        </label>
+                        <input type="number" id="second" name="second" value="0" min="0" max="59" step="1" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="latitude">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Latitude
+                        </label>
+                        <input type="number" id="latitude" name="latitude" value="28.6139" step="any" required>
+                        <small>e.g., 28.6139 for Delhi</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="longitude">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Longitude
+                        </label>
+                        <input type="number" id="longitude" name="longitude" value="77.2090" step="any" required>
+                        <small>e.g., 77.2090 for Delhi</small>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="timezone">
+                        <i class="fas fa-globe"></i>
+                        Timezone (GMT offset)
+                    </label>
+                    <input type="number" id="timezone" name="timezone" value="5.5" step="0.5" required>
+                    <small>e.g., 5.5 for IST</small>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-star"></i>
+                    Generate Horoscope
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+    <div class="container">
+        <h2 class="section-title">What You'll <span class="highlight">Discover</span></h2>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-sun"></i>
+                </div>
+                <h3>Planetary Positions</h3>
+                <p>Exact positions of all major planets in signs and nakshatras</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <h3>Ascendant & Houses</h3>
+                <p>Your rising sign and complete house cusps</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3>Panchanga</h3>
+                <p>Tithi, Nakshatra, Yoga, and Karana for the day</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

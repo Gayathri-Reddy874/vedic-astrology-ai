@@ -1,0 +1,474 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Results Header -->
+<section class="chart-header">
+    <div class="container">
+        <h1 class="chart-title">
+            Compatibility Results: <span class="highlight">{{ boy_name }}</span> & <span class="highlight">{{ girl_name }}</span>
+        </h1>
+        
+        <div class="compatibility-badge {{ match.compatibility|lower|replace(' ', '-') }}">
+            <i class="fas fa-heart"></i>
+            <span>{{ match.compatibility }}</span>
+        </div>
+        
+        <div class="total-score">
+            <span class="score-number">{{ match.total }}</span>
+            <span class="score-max">/ {{ match.max_score }}</span>
+        </div>
+    </div>
+</section>
+
+<!-- Results Content -->
+<section class="chart-content">
+    <div class="container">
+        <!-- Nakshatra Summary -->
+        <div class="chart-section">
+            <h2 class="section-title">
+                <i class="fas fa-moon"></i>
+                Nakshatra Summary
+            </h2>
+            
+            <div class="nakshatra-summary">
+                <div class="nakshatra-card boy">
+                    <h3>{{ boy_name }}</h3>
+                    <div class="nakshatra-name">{{ match.boy.nakshatra }}</div>
+                    <div class="nakshatra-details">
+                        <span>Lord: {{ match.boy.nakshatra_lord }}</span>
+                        <span>Gana: {{ match.boy.gana }}</span>
+                        <span>Yoni: {{ match.boy.yoni }}</span>
+                        <span>Nadi: {{ match.boy.nadi }}</span>
+                        <span>Rashi: {{ match.boy.rashi + 1 }}</span>
+                    </div>
+                </div>
+                
+                <div class="nakshatra-card girl">
+                    <h3>{{ girl_name }}</h3>
+                    <div class="nakshatra-name">{{ match.girl.nakshatra }}</div>
+                    <div class="nakshatra-details">
+                        <span>Lord: {{ match.girl.nakshatra_lord }}</span>
+                        <span>Gana: {{ match.girl.gana }}</span>
+                        <span>Yoni: {{ match.girl.yoni }}</span>
+                        <span>Nadi: {{ match.girl.nadi }}</span>
+                        <span>Rashi: {{ match.girl.rashi + 1 }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Guna Scores -->
+        <div class="chart-section">
+            <h2 class="section-title">
+                <i class="fas fa-chart-pie"></i>
+                Guna Milan Scores
+            </h2>
+            
+            <div class="scores-grid">
+                <div class="score-item {% if match.scores.Varna > 0 %}achieved{% endif %}">
+                    <div class="score-header">
+                        <span class="score-name">Varna</span>
+                        <span class="score-value">{{ match.scores.Varna }}/1</span>
+                    </div>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: {{ match.scores.Varna * 100 }}%"></div>
+                    </div>
+                    <div class="score-desc">Spiritual compatibility</div>
+                </div>
+                
+                <div class="score-item {% if match.scores.Vashya > 0 %}achieved{% endif %}">
+                    <div class="score-header">
+                        <span class="score-name">Vashya</span>
+                        <span class="score-value">{{ match.scores.Vashya }}/2</span>
+                    </div>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: {{ (match.scores.Vashya/2) * 100 }}%"></div>
+                    </div>
+                    <div class="score-desc">Mutual attraction</div>
+                </div>
+                
+                <div class="score-item {% if match.scores.Tara > 0 %}achieved{% endif %}">
+                    <div class="score-header">
+                        <span class="score-name">Tara</span>
+                        <span class="score-value">{{ match.scores.Tara }}/3</span>
+                    </div>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: {{ (match.scores.Tara/3) * 100 }}%"></div>
+                    </div>
+                    <div class="score-desc">Destiny and luck</div>
+                </div>
+                
+                <div class="score-item {% if match.scores.Yoni > 0 %}achieved{% endif %}">
+                    <div class="score-header">
+                        <span class="score-name">Yoni</span>
+                        <span class="score-value">{{ match.scores.Yoni }}/4</span>
+                    </div>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: {{ (match.scores.Yoni/4) * 100 }}%"></div>
+                    </div>
+                    <div class="score-desc">Physical intimacy</div>
+                </div>
+                
+                <div class="score-item {% if match.scores['Graha Maitri'] > 0 %}achieved{% endif %}">
+                    <div class="score-header">
+                        <span class="score-name">Graha Maitri</span>
+                        <span class="score-value">{{ match.scores['Graha Maitri'] }}/5</span>
+                    </div>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: {{ (match.scores['Graha Maitri']/5) * 100 }}%"></div>
+                    </div>
+                    <div class="score-desc">Mental compatibility</div>
+                </div>
+                
+                <div class="score-item {% if match.scores.Gana > 0 %}achieved{% endif %}">
+                    <div class="score-header">
+                        <span class="score-name">Gana</span>
+                        <span class="score-value">{{ match.scores.Gana }}/6</span>
+                    </div>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: {{ (match.scores.Gana/6) * 100 }}%"></div>
+                    </div>
+                    <div class="score-desc">Temperament</div>
+                </div>
+                
+                <div class="score-item {% if match.scores.Bhakoot > 0 %}achieved{% endif %}">
+                    <div class="score-header">
+                        <span class="score-name">Bhakoot</span>
+                        <span class="score-value">{{ match.scores.Bhakoot }}/7</span>
+                    </div>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: {{ (match.scores.Bhakoot/7) * 100 }}%"></div>
+                    </div>
+                    <div class="score-desc">Family compatibility</div>
+                </div>
+                
+                <div class="score-item {% if match.scores.Nadi > 0 %}achieved{% endif %}">
+                    <div class="score-header">
+                        <span class="score-name">Nadi</span>
+                        <span class="score-value">{{ match.scores.Nadi }}/8</span>
+                    </div>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: {{ (match.scores.Nadi/8) * 100 }}%"></div>
+                    </div>
+                    <div class="score-desc">Health and genetics</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Manglik Analysis -->
+        <div class="chart-section">
+            <h2 class="section-title">
+                <i class="fas fa-fire"></i>
+                Manglik Analysis
+            </h2>
+            
+            <div class="manglik-grid">
+                <div class="manglik-card {% if match.boy.manglik %}manglik{% else %}non-manglik{% endif %}">
+                    <h3>{{ boy_name }}</h3>
+                    <div class="manglik-status">
+                        {% if match.boy.manglik %}
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Manglik (House {{ match.boy.manglik_house }})</span>
+                        {% else %}
+                            <i class="fas fa-check-circle"></i>
+                            <span>Non-Manglik</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="manglik-card {% if match.girl.manglik %}manglik{% else %}non-manglik{% endif %}">
+                    <h3>{{ girl_name }}</h3>
+                    <div class="manglik-status">
+                        {% if match.girl.manglik %}
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Manglik (House {{ match.girl.manglik_house }})</span>
+                        {% else %}
+                            <i class="fas fa-check-circle"></i>
+                            <span>Non-Manglik</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dosha-info">
+                <h3>Manglik Dosha: {{ match.manglik_dosha }}</h3>
+                {% if match.manglik_dosha != "Cancelled" %}
+                    <p class="remedy">{{ match.manglik_remedy }}</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Interpretation -->
+        <div class="chart-section">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i>
+                Interpretation
+            </h2>
+            
+            <div class="interpretation-card">
+                <p class="compatibility-text">
+                    {% if match.total >= 32 %}
+                        🌟 Excellent compatibility! The couple is likely to have a harmonious relationship with mutual understanding and shared goals.
+                    {% elif match.total >= 28 %}
+                        💫 Very good compatibility. Most aspects of life will be well-aligned with minor adjustments needed.
+                    {% elif match.total >= 24 %}
+                        ✨ Good compatibility. The relationship can work well with understanding and compromise.
+                    {% elif match.total >= 18 %}
+                        ⭐ Average compatibility. Some areas need attention and conscious effort from both partners.
+                    {% else %}
+                        ⚠️ Below average compatibility. Careful consideration and expert guidance is recommended.
+                    {% endif %}
+                </p>
+                
+                {% if match.total < 18 %}
+                <div class="remedy-section">
+                    <h3>Suggested Remedies:</h3>
+                    <ul>
+                        <li>Consult with a qualified astrologer for personalized guidance</li>
+                        <li>Consider performing specific pujas for the affected kootas</li>
+                        <li>Look for other astrological factors like Ashtakoot and Rajju dosha</li>
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <a href="{{ url_for('compatibility') }}" class="btn btn-outline">
+                <i class="fas fa-arrow-left"></i>
+                New Match
+            </a>
+            <button class="btn btn-primary" onclick="window.print()">
+                <i class="fas fa-print"></i>
+                Print Results
+            </button>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Additional styles for match results */
+.compatibility-badge {
+    display: inline-block;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 1rem 0;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--saffron) 100%);
+    color: var(--dark-green);
+}
+
+.total-score {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--dark-green);
+}
+
+.score-number {
+    color: var(--gold);
+}
+
+.score-max {
+    font-size: 1.5rem;
+    color: var(--gray);
+}
+
+.nakshatra-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.nakshatra-card {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(44, 95, 45, 0.1);
+}
+
+.nakshatra-card.boy {
+    border-top: 4px solid #3498db;
+}
+
+.nakshatra-card.girl {
+    border-top: 4px solid #e83e8c;
+}
+
+.nakshatra-card h3 {
+    margin-bottom: 1rem;
+    color: var(--dark-green);
+}
+
+.nakshatra-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 1rem;
+}
+
+.nakshatra-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.5rem;
+}
+
+.nakshatra-details span {
+    padding: 0.25rem 0.5rem;
+    background: rgba(151, 203, 169, 0.1);
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.scores-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.score-item {
+    background: var(--white);
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid var(--light-gray);
+}
+
+.score-item.achieved {
+    border-left-color: var(--gold);
+}
+
+.score-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.score-name {
+    font-weight: 600;
+    color: var(--dark-green);
+}
+
+.score-value {
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.score-bar {
+    height: 8px;
+    background: var(--light-gray);
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+}
+
+.score-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--saffron));
+    border-radius: 4px;
+    transition: width 1s ease;
+}
+
+.score-desc {
+    font-size: 0.85rem;
+    color: var(--gray);
+}
+
+.manglik-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.manglik-card {
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.manglik-card.manglik {
+    background: rgba(220, 38, 38, 0.1);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+.manglik-card.non-manglik {
+    background: rgba(46, 204, 113, 0.1);
+    border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.manglik-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 600;
+}
+
+.dosha-info {
+    background: rgba(198, 164, 63, 0.1);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid var(--gold);
+}
+
+.dosha-info h3 {
+    color: var(--dark-green);
+    margin-bottom: 0.5rem;
+}
+
+.remedy {
+    color: var(--primary-green);
+    font-style: italic;
+}
+
+.interpretation-card {
+    background: linear-gradient(135deg, #f5f5f5, #e8f0e8);
+    padding: 2rem;
+    border-radius: 15px;
+}
+
+.compatibility-text {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: var(--dark-green);
+}
+
+.remedy-section {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px dashed var(--gold);
+}
+
+.remedy-section h3 {
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+}
+
+.remedy-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.remedy-section li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.remedy-section li::before {
+    content: "🕉️";
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+}
+
+@media (max-width: 768px) {
+    .nakshatra-summary,
+    .manglik-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}
