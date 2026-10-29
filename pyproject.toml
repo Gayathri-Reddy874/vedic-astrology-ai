@@ -1,1 +1,25 @@
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+extend-exclude = [".venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "C4", "SIM"]
+ignore = ["S101"]  # assert is fine in tests
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S", "B011"]
+"vedic_astro/core/constants.py" = ["E501"]
+"vedic_astro/core/predictions.py" = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.coverage.run]
+source = ["vedic_astro"]
+
+[tool.coverage.report]
+fail_under = 85
+show_missing = true
 
