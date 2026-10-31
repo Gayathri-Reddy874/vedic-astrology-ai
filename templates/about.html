@@ -1,1 +1,52 @@
+{% extends "base.html" %}
 
+{% block content %}
+<section class="about-hero">
+    <div class="container">
+        <h1 class="page-title">About <span class="highlight">Daiva Marga</span></h1>
+        <p class="page-subtitle">Ancient wisdom through modern technology</p>
+    </div>
+</section>
+
+<section class="about-content">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-text">
+                <h2>Our Mission</h2>
+                <p>Daiva Marga brings the ancient science of Vedic astrology to the digital age. Using precise astronomical calculations and traditional techniques, we provide accurate horoscopes for self-discovery and guidance.</p>
+                
+                <h2>The Technology</h2>
+                <p>Our calculations are powered by the Swiss Ephemeris library, ensuring high precision in planetary positions. We use the Lahiri ayanamsa for sidereal calculations, following traditional Vedic methods.</p>
+                
+                <h2>What We Offer</h2>
+                <ul class="about-list">
+                    <li><i class="fas fa-check-circle"></i> Accurate planetary positions</li>
+                    <li><i class="fas fa-check-circle"></i> Nakshatra and pada details</li>
+                    <li><i class="fas fa-check-circle"></i> Complete house cusps</li>
+                    <li><i class="fas fa-check-circle"></i> Panchanga for any date</li>
+                    <li><i class="fas fa-check-circle"></i> Rahu and Ketu positions</li>
+                </ul>
+            </div>
+            
+            <div class="about-stats">
+                <div class="stat-card">
+                    <div class="stat-number">27</div>
+                    <div class="stat-label">Nakshatras</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">9</div>
+                    <div class="stat-label">Grahas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Rashis</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">30</div>
+                    <div class="stat-label">Tithis</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
